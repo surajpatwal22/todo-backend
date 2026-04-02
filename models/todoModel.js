@@ -2,8 +2,14 @@ import mongoose from "mongoose";
 
 const todoSchema = new mongoose.Schema(
   {
-    title: String,
-    description: String,
+    title: {
+      type: String,
+      required: [true, "Title is required"],
+      minlength: [5, "Title must be at least 5 characters"],
+    },
+    description: {
+      type: String,
+    },
     status: {
       type: String,
       enum: ["pending", "completed"],

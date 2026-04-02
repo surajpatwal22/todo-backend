@@ -2,14 +2,15 @@ import express from "express";
 import connectDB from "./config/db.js";
 import todoRoutes from "./routes/todoRoutes.js";
 import config from "./config/index.js";
-// import userRoutes from "./routes/userRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
 
 const app = express();
 const { PORT } = config;
 
-app.use(express.json());
+app.use(express.json()); 
+app.use(express.urlencoded({ extended: true }));
 
-// app.use("/api/users", userRoutes);
+app.use("/api/users", userRoutes);
 app.use("/api/todos", todoRoutes);
 
 connectDB()

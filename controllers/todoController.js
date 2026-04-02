@@ -16,9 +16,18 @@ export const createTodo = async (req, res) => {
 export const getTodos = async (req, res) => {
   try {
     const todos = await Todo.find().populate("userId");
-    res.json(todos);
+    res.status(200).json({
+      message: "Todos retrieved successfully",
+      success: true,
+      data: todos,
+      status: 200,
+    });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({
+      message: "Failed to retrieve todos",
+      success: false,
+      error: err.message,
+    });
   }
 };
 
@@ -40,7 +49,11 @@ export const deleteTodo = async (req, res) => {
 export const getTodo = async (req, res) => {
   try {
     const todo = await Todo.findById(req.params.id).populate("userId");
-    res.json(todo);
+    res.status(200).json({
+      message: "Todo retrieved successfully",
+      success: true,
+      data: todo,
+    });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -55,6 +68,6 @@ export const getAllTodosOfAllUsers = async (req, res) => {
     const todos = await Todo.find().populate("userId");
     res.json(todos);
   } catch (err) {
-    res.status(500).json({ error: err.message });   
-  } 
+    res.status(500).json({ error: err.message });
+  }
 };
